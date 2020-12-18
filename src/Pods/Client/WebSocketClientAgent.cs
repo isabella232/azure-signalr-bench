@@ -49,18 +49,23 @@ namespace Azure.SignalRBench.Client
 
         private sealed class Data
         {
-            public string Payload { get; set; }
+            public string Payload { get; set; } = "";
+
             public long Ticks { get; set; }
         }
 
         private sealed class WebSocketHubConnection
         {
             private readonly ClientWebSocket _socket;
-            private CancellationTokenSource _connectionStoppedCts = new CancellationTokenSource();
+
+            private readonly CancellationTokenSource _connectionStoppedCts = new CancellationTokenSource();
 
             private Action<long, string>? _handler;
+
             public Uri Endpoint { get; }
+
             private CancellationToken ConnectionStoppedToken => _connectionStoppedCts.Token;
+
             public WebSocketHubConnection(string url)
             {
                 _socket = new ClientWebSocket();
